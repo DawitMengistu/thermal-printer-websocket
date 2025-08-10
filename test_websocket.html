@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Printer WebSocket Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .command {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 16px;
+        }
+
+        input {
+            margin: 5px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Printer WebSocket Test</h1>
+
+    <div class="status" id="status">Status: Disconnected</div>
+
+    <div class="command">
+        <h3>Print Text</h3>
+        <input type="text" id="textInput" placeholder="Enter text to print" value="Hello World!">
+        <button onclick="printText()">Print Text</button>
+    </div>
+
+    <div class="command">
+        <h3>Print Image</h3>
+        <input type="text" id="imageInput" placeholder="Image path" value="data/logo.png">
+        <button onclick="printImage()">Print Image</button>
+    </div>
+
+    <div class="command">
+        <h3>Print Image with Text</h3>
+        <input type="text" id="imgTextInput" placeholder="Image path" value="data/logo.png">
+        <input type="text" id="imgTextText" placeholder="Text to print" value="Company Logo">
+        <button onclick="printImageAndText()">Print Image + Text</button>
+    </div>
+
+    <div class="command">
+        <h3>Test Print</h3>
+        <button onclick="printTest()">Print Test Page</button>
+    </div>
+
+    <script>
+        let ws;
+
+        function connect() {
+            ws = new WebSocket('ws://localhost:6969/print');
+
+            ws.onopen = function () {
+                document.getElementById('status').innerHTML = 'Status: Connected';
+                document.getElementById('status').style.background = '#d4edda';
+            };
+
+            ws.onclose = function () {
+                document.getElementById('status').innerHTML = 'Status: Disconnected';
+                document.getElementById('status').style.background = '#f8d7da';
+            };
+
+            ws.onerror = function (error) {
+                document.getElementById('status').innerHTML = 'Status: Error - ' + error;
+                document.getElementById('status').style.background = '#f8d7da';
+            };
+        }
+
+        function sendCommand(command) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(command));
+                console.log('Sent:', command);
+            } else {
+                alert('WebSocket not connected. Please check if the Processing sketch is running.');
+            }
+        }
+
+        function printText() {
+            const text = document.getElementById('textInput').value;
+            sendCommand({ command: 'printText', text: text });
+        }
+
+        function printImage() {
+            const imagePath = document.getElementById('imageInput').value;
+            sendCommand({ command: 'printImage', imagePath: imagePath });
+        }
+
+        function printImageAndText() {
+            const imagePath = document.getElementById('imgTextInput').value;
+            const text = document.getElementById('imgTextText').value;
+            sendCommand({ command: 'printImageAndText', imagePath: imagePath, text: text });
+        }
+
+        function printTest() {
+            sendCommand({ command: 'printTest' });
+        }
+
+        // Connect when page loads
+        window.onload = connect;
+    </script>
+</body>
+
+</html>
