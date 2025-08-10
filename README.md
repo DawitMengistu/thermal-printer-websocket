@@ -10,8 +10,13 @@ A simplified thermal printer control system with WebSocket support for printing 
 - **SimpleFile**: File handling for saving printer settings
 
 
-<img width="490" height="624" alt="20250810_170516" src="https://github.com/user-attachments/assets/b602a7cb-9cd9-4678-ade4-c7be86069434" />
-<img width="1376" height="1011" alt="Screenshot 2025-08-10 165742" src="https://github.com/user-attachments/assets/bd3e537a-8788-4ac5-81ed-efd39d15c9d5" />
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b602a7cb-9cd9-4678-ade4-c7be86069434" width="240"/></td>
+    <td><img src="https://github.com/user-attachments/assets/bd3e537a-8788-4ac5-81ed-efd39d15c9d5" width="240"/></td>
+  </tr>
+</table>
+
 <img width="1892" height="847" alt="Screenshot 2025-08-10 165702" src="https://github.com/user-attachments/assets/210a474e-a0b8-48dc-90a1-9f9c5e12726e" />
 
 
