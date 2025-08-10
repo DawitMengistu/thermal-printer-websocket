@@ -41,13 +41,13 @@ A simplified thermal printer control system with WebSocket support for printing 
 Send JSON commands to `ws://localhost:6969/print`:
 
 ```json
-// Print text only
+Print text only
 {"command": "printText", "text": "Hello World!"}
 
-// Print image only
+Print image only
 {"command": "printImage", "imagePath": "data/logo.png"}
 
-// Print image with text
+Print image with text
 {"command": "printImageAndText", "imagePath": "data/logo.png", "text": "Company Logo"}
 
 // Print test page
